@@ -2,912 +2,964 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Muhammad Kamran — Senior Node.js Developer</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link
-    href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap"
-    rel="stylesheet" />
-  <style>
-    :root {
-      --sidebar-bg: #1a2332;
-      --sidebar-accent: #3b82f6;
-      --sidebar-text: #cbd5e1;
-      --sidebar-muted: #64748b;
-      --body-bg: #fffff;
-      --surface: #ffffff;
-      --ink: #1e293b;
-      --ink-muted: #64748b;
-      --rule: #e2e8f0;
-      --accent: #1d4ed8;
-      --accent-light: #eff6ff;
-      --tag-bg: #e2e8f0;
-      --tag-text: #334155;
-      --sidebar-w: 240px;
-      --gap: 0px;
-      --section-gap: 28px;
-    }
-
-    *,
-    *::before,
-    *::after {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    body {
-      font-family: 'DM Sans', sans-serif;
-      font-size: 13.5px;
-      line-height: 1.6;
-      background: var(--body-bg);
-      color: var(--ink);
-      min-height: 100vh;
-      display: flex;
-      align-items: flex-start;
-      justify-content: center;
-      padding: 32px 16px;
-    }
-
-    /* ── Outer wrapper: stacks top-row + projects ── */
-    .cv-wrapper {
-      width: 900px;
-      max-width: 100%;
-      box-shadow: 0 4px 40px rgba(0, 0, 0, 0.12), 0 1px 4px rgba(0, 0, 0, 0.06);
-      border-radius: 4px;
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-    }
-
-    /* ── Top row: sidebar + main side by side ── */
-    .cv-top {
-      display: grid;
-      grid-template-columns: var(--sidebar-w) 1fr;
-    }
-
-    .sidebar {
-      background: var(--sidebar-bg);
-      color: var(--sidebar-text);
-      padding: 22px 16px;
-      display: flex;
-      flex-direction: column;
-      gap: 26px;
-    }
-
-    .profile-avatar {
-      width: 80px;
-      height: 80px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, var(--sidebar-accent) 0%, #1e40af 100%);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: 'DM Serif Display', serif;
-      font-size: 28px;
-      color: #fff;
-      letter-spacing: -1px;
-      flex-shrink: 0;
-      margin-bottom: 2px;
-    }
-
-    .sidebar-name {
-      font-family: 'DM Serif Display', serif;
-      font-size: 20px;
-      color: #fff;
-      line-height: 1.25;
-      margin-bottom: 4px;
-    }
-
-    .sidebar-title {
-      font-size: 11px;
-      font-weight: 500;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: var(--sidebar-accent);
-    }
-
-    .s-label {
-      font-size: 10px;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-      color: var(--sidebar-accent);
-      margin-bottom: 10px;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .s-label::after {
-      content: '';
-      flex: 1;
-      height: 1px;
-      background: rgba(59, 130, 246, 0.3);
-    }
-
-    .contact-list {
-      display: flex;
-      flex-direction: column;
-      gap: 7px;
-    }
-
-    .contact-item {
-      display: flex;
-      align-items: flex-start;
-      gap: 8px;
-      font-size: 12px;
-      color: var(--sidebar-text);
-      line-height: 1.4;
-    }
-
-    .contact-icon {
-      width: 16px;
-      height: 16px;
-      flex-shrink: 0;
-      margin-top: 1px;
-      opacity: 0.7;
-    }
-
-    .skills-group {
-      margin-bottom: 14px;
-    }
-
-    .skills-group:last-child {
-      margin-bottom: 0;
-    }
-
-    .skills-group-label {
-      font-size: 10.5px;
-      font-weight: 600;
-      color: #94a3b8;
-      margin-bottom: 6px;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-    }
-
-    .skill-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 4px;
-    }
-
-    .skill-tag {
-      background: rgba(255, 255, 255, 0.07);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      color: var(--sidebar-text);
-      font-size: 10.5px;
-      padding: 2px 7px;
-      border-radius: 3px;
-      line-height: 1.6;
-    }
-
-    .lang-list {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
-
-    .lang-item {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .lang-name {
-      font-size: 12px;
-      color: var(--sidebar-text);
-    }
-
-    .lang-level {
-      font-size: 10px;
-      color: var(--sidebar-muted);
-      background: rgba(255, 255, 255, 0.06);
-      padding: 1px 6px;
-      border-radius: 2px;
-    }
-
-    .highlight-list {
-      display: flex;
-      flex-direction: column;
-      gap: 5px;
-    }
-
-    .highlight-item {
-      font-size: 11.5px;
-      color: var(--sidebar-text);
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .highlight-item::before {
-      content: '';
-      width: 5px;
-      height: 5px;
-      border-radius: 50%;
-      background: var(--sidebar-accent);
-      flex-shrink: 0;
-    }
-
-    .main {
-      background: var(--surface);
-      padding: 36px 36px 36px 36px;
-      display: flex;
-      flex-direction: column;
-      gap: var(--section-gap);
-    }
-
-    .section-title {
-      font-family: 'DM Serif Display', serif;
-      font-size: 15px;
-      color: var(--ink);
-      margin-bottom: 14px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .section-title::after {
-      content: '';
-      flex: 1;
-      height: 1.5px;
-      background: linear-gradient(to right, var(--rule), transparent);
-    }
-
-    .summary-text {
-      font-size: 13px;
-      color: var(--ink-muted);
-      line-height: 1.75;
-      border-left: 3px solid var(--accent);
-      padding-left: 14px;
-      background: var(--accent-light);
-      padding: 12px 14px;
-      border-radius: 0 4px 4px 0;
-    }
-
-    .exp-entry {
-      margin-bottom: 20px;
-    }
-
-    .exp-entry:last-child {
-      margin-bottom: 0;
-    }
-
-    .exp-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      margin-bottom: 2px;
-    }
-
-    .exp-role {
-      font-weight: 600;
-      font-size: 13.5px;
-      color: var(--ink);
-    }
-
-    .exp-date {
-      font-size: 11px;
-      color: var(--ink-muted);
-      white-space: nowrap;
-      background: var(--tag-bg);
-      padding: 2px 7px;
-      border-radius: 3px;
-      flex-shrink: 0;
-      margin-left: 8px;
-    }
-
-    .exp-company {
-      font-size: 12px;
-      color: var(--accent);
-      font-weight: 500;
-      margin-bottom: 6px;
-    }
-
-    .exp-desc {
-      font-size: 12.5px;
-      color: var(--ink-muted);
-      line-height: 1.65;
-      margin-bottom: 6px;
-    }
-
-    .exp-stack {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 4px;
-    }
-
-    .exp-tech {
-      background: var(--accent-light);
-      color: var(--accent);
-      font-size: 10.5px;
-      font-weight: 500;
-      padding: 2px 7px;
-      border-radius: 3px;
-    }
-
-    .exp-separator {
-      border: none;
-      border-top: 1px dashed var(--rule);
-      margin: 16px 0;
-    }
-
-    /* ── Full-width Projects section ── */
-    .cv-projects {
-      background: var(--body-bg);
-      padding: 28px 36px 36px;
-    }
-
-    .projects-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 12px;
-    }
-
-    .project-card {
-      border: 1px solid var(--rule);
-      border-radius: 6px;
-      padding: 12px 14px;
-      background: var(--surface);
-      transition: border-color 0.15s;
-    }
-
-    .project-card:hover {
-      border-color: var(--accent);
-    }
-
-    .project-name {
-      font-weight: 600;
-      font-size: 13px;
-      color: var(--ink);
-      margin-bottom: 3px;
-    }
-
-    .project-name a {
-      color: inherit;
-      text-decoration: none;
-    }
-
-    .project-name a:hover {
-      color: var(--accent);
-    }
-
-    .project-date {
-      font-size: 10.5px;
-      color: var(--ink-muted);
-      margin-bottom: 5px;
-    }
-
-    .project-desc {
-      font-size: 12px;
-      color: var(--ink-muted);
-      line-height: 1.55;
-      margin-bottom: 7px;
-    }
-
-    .project-stack {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 3px;
-    }
-
-    .project-tech {
-      background: var(--tag-bg);
-      color: var(--tag-text);
-      font-size: 10px;
-      padding: 1px 6px;
-      border-radius: 3px;
-    }
-
-    .edu-entry {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-    }
-
-    .edu-degree {
-      font-weight: 600;
-      font-size: 13px;
-      color: var(--ink);
-    }
-
-    .edu-school {
-      font-size: 12px;
-      color: var(--ink-muted);
-      margin-top: 1px;
-    }
-
-    .edu-meta {
-      text-align: right;
-      flex-shrink: 0;
-      margin-left: 12px;
-    }
-
-    .edu-year {
-      font-size: 11px;
-      color: var(--ink-muted);
-      background: var(--tag-bg);
-      padding: 2px 7px;
-      border-radius: 3px;
-      display: inline-block;
-      margin-bottom: 3px;
-    }
-
-    .edu-grade {
-      font-size: 11px;
-      color: var(--ink-muted);
-      display: block;
-      text-align: right;
-    }
-
-    @media print {
-      @page {
-        size: A4 portrait;
-        margin: 4mm;
-      }
-
-      html,
-      body {
-        background: white !important;
-        margin: 0;
-        padding: 0;
-        -webkit-print-color-adjust: exact;
-        print-color-adjust: exact;
-      }
-
-      .cv-wrapper {
-        width: 100%;
-        box-shadow: none;
-        border-radius: 0;
-      }
-
-      .main {
-        padding: 24px 28px;
-      }
-
-      .cv-projects {
-        padding: 20px 20px 28px;
-      }
-
-      section {
-        break-inside: avoid;
-        page-break-inside: avoid;
-      }
-
-      .section-title {
-        break-after: avoid;
-        page-break-after: avoid;
-      }
-
-      .exp-entry,
-      .project-card,
-      .edu-entry {
-        break-inside: avoid;
-        page-break-inside: avoid;
-      }
-
-      .projects-grid {
-        break-inside: auto;
-      }
-
-      .section-title+* {
-        break-before: avoid;
-      }
-
-      .project-card:hover {
-        border-color: #e2e8f0;
-      }
-    }
-
-    @media (max-width: 680px) {
-      .cv-top {
-        grid-template-columns: 1fr;
-      }
-
-      .sidebar {
-        padding: 28px 20px;
-      }
-
-      .projects-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .cv-projects {
-        padding: 20px 0px 24px;
-      }
-
-      body {
-        padding: 0;
-      }
-    }
-
-    @media (max-width: 900px) and (min-width: 681px) {
-      .projects-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-    }
-  </style>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Muhammad Kamran — Senior Full Stack Engineer (AI & Real-Time Systems)</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link
+            href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap"
+            rel="stylesheet"/>
+    <style>
+        :root {
+            --sidebar-bg: #1a2332;
+            --sidebar-accent: #3b82f6;
+            --sidebar-text: #cbd5e1;
+            --sidebar-muted: #64748b;
+            --body-bg: #ffffff;
+            --surface: #ffffff;
+            --ink: #1e293b;
+            --ink-muted: #64748b;
+            --rule: #e2e8f0;
+            --accent: #1d4ed8;
+            --accent-light: #eff6ff;
+            --tag-bg: #e2e8f0;
+            --tag-text: #334155;
+            --sidebar-w: 250px;
+            --gap: 0px;
+            --section-gap: 16px;
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 13.5px;
+            line-height: 1.6;
+            background: var(--body-bg);
+            color: var(--ink);
+            min-height: 100vh;
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            padding: 32px 16px;
+        }
+
+        /* ── Outer wrapper: stacks top-row + projects ── */
+        .cv-wrapper {
+            width: 900px;
+            max-width: 100%;
+            box-shadow: 0 4px 40px rgba(0, 0, 0, 0.12), 0 1px 4px rgba(0, 0, 0, 0.06);
+            border-radius: 4px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* ── Top row: sidebar + main side by side ── */
+        .cv-top {
+            display: grid;
+            grid-template-columns: var(--sidebar-w) 1fr;
+        }
+
+        .sidebar {
+            background: var(--sidebar-bg);
+            color: var(--sidebar-text);
+            padding: 22px 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 26px;
+        }
+
+        .profile-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--sidebar-accent) 0%, #1e40af 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'DM Serif Display', serif;
+            font-size: 28px;
+            color: #fff;
+            letter-spacing: -1px;
+            flex-shrink: 0;
+            margin-bottom: 2px;
+        }
+
+        .sidebar-name {
+            font-family: 'DM Serif Display', serif;
+            font-size: 20px;
+            color: #fff;
+            line-height: 1.25;
+            margin-bottom: 4px;
+        }
+
+        .sidebar-title {
+            font-size: 11px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--sidebar-accent);
+        }
+
+        .s-label {
+            font-size: 10px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: var(--sidebar-accent);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .s-label::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: rgba(59, 130, 246, 0.3);
+        }
+
+        .contact-list {
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+            font-size: 12px;
+            color: var(--sidebar-text);
+            line-height: 1.4;
+        }
+
+        .contact-icon {
+            width: 16px;
+            height: 16px;
+            flex-shrink: 0;
+            margin-top: 1px;
+            opacity: 0.7;
+        }
+
+        .skills-group {
+            margin-bottom: 14px;
+        }
+
+        .skills-group:last-child {
+            margin-bottom: 0;
+        }
+
+        .skills-group-label {
+            font-size: 10.5px;
+            font-weight: 600;
+            color: #94a3b8;
+            margin-bottom: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+        }
+
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4px;
+        }
+
+        .skill-tag {
+            background: rgba(255, 255, 255, 0.07);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--sidebar-text);
+            font-size: 10.5px;
+            padding: 2px 7px;
+            border-radius: 3px;
+            line-height: 1.6;
+        }
+
+        .lang-list {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .lang-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .lang-name {
+            font-size: 12px;
+            color: var(--sidebar-text);
+        }
+
+        .lang-level {
+            font-size: 10px;
+            color: var(--sidebar-muted);
+            background: rgba(255, 255, 255, 0.06);
+            padding: 1px 6px;
+            border-radius: 2px;
+        }
+
+        .highlight-list {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .highlight-item {
+            font-size: 11.5px;
+            color: var(--sidebar-text);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .highlight-item::before {
+            content: '';
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background: var(--sidebar-accent);
+            flex-shrink: 0;
+        }
+
+        .main {
+            background: var(--surface);
+            padding: 16px 36px 36px 36px;
+            display: flex;
+            flex-direction: column;
+            gap: var(--section-gap);
+        }
+
+        .section-title {
+            font-family: 'DM Serif Display', serif;
+            font-size: 15px;
+            color: var(--ink);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-title::after {
+            content: '';
+            flex: 1;
+            height: 1.5px;
+            background: linear-gradient(to right, var(--rule), transparent);
+        }
+
+        .summary-text {
+            font-size: 13px;
+            color: var(--ink-muted);
+            line-height: 1.75;
+            border-left: 3px solid var(--accent);
+            padding-left: 14px;
+            background: var(--accent-light);
+            padding: 12px 14px;
+            border-radius: 0 4px 4px 0;
+        }
+
+        .exp-entry {
+            margin-bottom: 20px;
+        }
+
+        .exp-entry:last-child {
+            margin-bottom: 0;
+        }
+
+        .exp-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 2px;
+        }
+
+        .exp-role {
+            font-weight: 600;
+            font-size: 13.5px;
+            color: var(--ink);
+        }
+
+        .exp-date {
+            font-size: 11px;
+            color: var(--ink-muted);
+            white-space: nowrap;
+            background: var(--tag-bg);
+            padding: 2px 7px;
+            border-radius: 3px;
+            flex-shrink: 0;
+            margin-left: 8px;
+        }
+
+        .exp-company {
+            font-size: 12px;
+            color: var(--accent);
+            font-weight: 500;
+            margin-bottom: 6px;
+        }
+
+        .exp-desc {
+            font-size: 12.5px;
+            color: var(--ink-muted);
+            line-height: 1.65;
+            margin-bottom: 6px;
+        }
+
+        .exp-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4px;
+        }
+
+        .exp-tech {
+            background: var(--accent-light);
+            color: var(--accent);
+            font-size: 10.5px;
+            font-weight: 500;
+            padding: 2px 7px;
+            border-radius: 3px;
+        }
+
+        .exp-separator {
+            border: none;
+            border-top: 1px dashed var(--rule);
+            margin: 16px 0;
+        }
+
+        /* ── Full-width Projects section ── */
+        .cv-projects {
+            background: var(--body-bg);
+            padding: 28px 36px 36px;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+        }
+
+        .project-card {
+            border: 1px solid var(--rule);
+            border-radius: 6px;
+            padding: 12px 14px;
+            background: var(--surface);
+            transition: border-color 0.15s;
+        }
+
+        .project-card:hover {
+            border-color: var(--accent);
+        }
+
+        .project-name {
+            font-weight: 600;
+            font-size: 13px;
+            color: var(--ink);
+            margin-bottom: 3px;
+        }
+
+        .project-name a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .project-name a:hover {
+            color: var(--accent);
+        }
+
+        .project-date {
+            font-size: 10.5px;
+            color: var(--ink-muted);
+            margin-bottom: 5px;
+        }
+
+        .project-desc {
+            font-size: 12px;
+            color: var(--ink-muted);
+            line-height: 1.55;
+            margin-bottom: 7px;
+        }
+
+        .project-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 3px;
+        }
+
+        .project-tech {
+            background: var(--tag-bg);
+            color: var(--tag-text);
+            font-size: 10px;
+            padding: 1px 6px;
+            border-radius: 3px;
+        }
+
+        .edu-entry {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .edu-degree {
+            font-weight: 600;
+            font-size: 13px;
+            color: var(--ink);
+        }
+
+        .edu-school {
+            font-size: 12px;
+            color: var(--ink-muted);
+            margin-top: 1px;
+        }
+
+        .edu-meta {
+            text-align: right;
+            flex-shrink: 0;
+            margin-left: 12px;
+        }
+
+        .edu-year {
+            font-size: 11px;
+            color: var(--ink-muted);
+            background: var(--tag-bg);
+            padding: 2px 7px;
+            border-radius: 3px;
+            display: inline-block;
+            margin-bottom: 3px;
+        }
+
+        .edu-grade {
+            font-size: 11px;
+            color: var(--ink-muted);
+            display: block;
+            text-align: right;
+        }
+
+        @media print {
+            @page {
+                size: A4 portrait;
+                margin: 4mm;
+            }
+
+            html,
+            body {
+                background: white !important;
+                margin: 0;
+                padding: 0;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+
+            .cv-wrapper {
+                width: 100%;
+                box-shadow: none;
+                border-radius: 0;
+            }
+
+            .main {
+                padding: 16px 28px;
+            }
+
+            .cv-projects {
+                padding: 20px 20px 28px;
+            }
+
+            section {
+                break-inside: avoid;
+                page-break-inside: avoid;
+            }
+
+            .section-title {
+                break-after: avoid;
+                page-break-after: avoid;
+            }
+
+            .exp-entry,
+            .project-card,
+            .edu-entry {
+                break-inside: avoid;
+                page-break-inside: avoid;
+            }
+
+            .projects-grid {
+                break-inside: auto;
+            }
+
+            .section-title + * {
+                break-before: avoid;
+            }
+
+            .project-card:hover {
+                border-color: #e2e8f0;
+            }
+        }
+
+        @media (max-width: 680px) {
+            .cv-top {
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar {
+                padding: 28px 20px;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .cv-projects {
+                padding: 20px 0px 24px;
+            }
+
+            body {
+                padding: 0;
+            }
+        }
+
+        @media (max-width: 900px) and (min-width: 681px) {
+            .projects-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
 </head>
 
 <body>
-  <div class="cv-wrapper">
+<div class="cv-wrapper">
 
     <!-- Top: sidebar + main content -->
     <div class="cv-top">
-      <aside class="sidebar">
-        <div>
-          <div class="sidebar-name">Muhammad Kamran</div>
-          <div class="sidebar-title">Senior Node.js Developer</div>
-        </div>
-        <div>
-          <div class="s-label">Contact</div>
-          <div class="contact-list">
-            <div class="contact-item">
-              <svg class="contact-icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5">
-                <path d="M10 2C6.686 2 4 4.686 4 8c0 4.5 6 10 6 10s6-5.5 6-10c0-3.314-2.686-6-6-6z" />
-                <circle cx="10" cy="8" r="2" />
-              </svg>
-              Lahore, Pakistan
-            </div>
-            <div class="contact-item">
-              <svg class="contact-icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5">
-                <path d="M2 5a2 2 0 012-2h12a2 2 0 012 2v10a2 2 0 01-2 2H4a2 2 0 01-2-2V5z" />
-                <path d="M2 5l8 6 8-6" />
-              </svg>
-              kamranallahyar@outlook.com
-            </div>
-            <div class="contact-item">
-              <svg class="contact-icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5">
-                <path
-                  d="M2 3h2l2.5 6-1.5 1.5A13 13 0 0011.5 15.5l1.5-1.5 6 2.5v2a2 2 0 01-2 2C5.37 20 0 14.63 0 8a2 2 0 012-2z" />
-              </svg>
-              +92 340 7083077
-            </div>
-          </div>
-        </div>
-        <div>
-          <div class="s-label">Skills</div>
-          <div class="skills-group">
-            <div class="skills-group-label">Backend</div>
-            <div class="skill-tags">
-              <span class="skill-tag">Node.js</span>
-              <span class="skill-tag">Bun.js</span>
-              <span class="skill-tag">Express</span>
-              <span class="skill-tag">PHP</span>
-              <span class="skill-tag">Laravel</span>
-              <span class="skill-tag">Nest.js</span>
-              <span class="skill-tag">AdonisJS</span>
-
-            </div>
-          </div>
-          <div class="skills-group">
-            <div class="skills-group-label">Frontend</div>
-            <div class="skill-tags">
-              <span class="skill-tag">React</span>
-              <span class="skill-tag">Vue.js</span>
-              <span class="skill-tag">Next.js</span>
-              <span class="skill-tag">Nuxt.js</span>
-              <span class="skill-tag">Svelte</span>
-              <span class="skill-tag">Tailwind</span>
-            </div>
-          </div>
-          <div class="skills-group">
-            <div class="skills-group-label">Databases</div>
-            <div class="skill-tags">
-              <span class="skill-tag">MySQL</span>
-              <span class="skill-tag">PostgreSQL</span>
-              <span class="skill-tag">MongoDB</span>
-              <span class="skill-tag">Redis</span>
-            </div>
-          </div>
-          <div class="skills-group">
-            <div class="skills-group-label">Other</div>
-            <div class="skill-tags">
-              <span class="skill-tag">Ai LLM</span>
-              <span class="skill-tag">Open Ai</span>
-              <span class="skill-tag">Ollama</span>
-              <span class="skill-tag">Git</span>
-              <span class="skill-tag">GitHub</span>
-              <span class="skill-tag">TypeScript</span>
-              <span class="skill-tag">GraphQL</span>
-              <span class="skill-tag">Socket.IO</span>
-              <span class="skill-tag">Websockets</span>
-              <span class="skill-tag">Kafka</span>
-              <span class="skill-tag">MQTT</span>
-              <span class="skill-tag">S3</span>
-              <span class="skill-tag">CI/CD</span>
-              <span class="skill-tag">Docker</span>
-              <span class="skill-tag">GitHub Runners</span>
-            </div>
-          </div>
-        </div>
-        <div>
-          <div class="s-label">Languages</div>
-          <div class="lang-list">
-            <div class="lang-item">
-              <span class="lang-name">Punjabi</span>
-              <span class="lang-level">Native</span>
-            </div>
-            <div class="lang-item">
-              <span class="lang-name">Urdu</span>
-              <span class="lang-level">Native</span>
-            </div>
-            <div class="lang-item">
-              <span class="lang-name">English</span>
-              <span class="lang-level">Fluent</span>
-            </div>
-          </div>
-        </div>
-        <div>
-          <div class="s-label">Highlights</div>
-          <div class="highlight-list">
-            <div class="highlight-item">Telematics &amp; IoT Systems</div>
-            <div class="highlight-item">High-throughput Data Streams</div>
-            <div class="highlight-item">API &amp; Webhook Development</div>
-            <div class="highlight-item">Third-Party Integrations</div>
-            <div class="highlight-item">WebSockets &amp; Real-time</div>
-            <div class="highlight-item">ACL &amp; Security</div>
-            <div class="highlight-item">CI/CD &amp; Docker</div>
-          </div>
-        </div>
-      </aside>
-
-      <main class="main">
-        <section>
-          <div class="section-title">About</div>
-          <p class="summary-text">
-            AI-focused Full Stack Developer with 7+ years of experience building intelligent, scalable web applications. Specialized in developing AI-powered systems using OpenAI LLMs and Ollama, including prompt engineering, function calling, assistants, embeddings, RAG pipelines, and production-grade chat/automation solutions. Experienced in integrating large language models into real-world applications for analytics, workflow automation, and conversational systems.
-
-Strong background in Node.js / TypeScript backends and modern Vue / React frontends. Proven record delivering high-throughput telematics and real-time systems using Kafka, MQTT, TCP streams, and containerized deployments. Skilled in optimizing MySQL/MongoDB performance, designing robust CI/CD pipelines, and managing GitHub self-hosted runners for scalable infrastructure.
-          </p>
-        </section>
-        <section>
-          <div class="section-title">Education</div>
-          <div class="edu-entry" style="margin-bottom:12px;">
+        <aside class="sidebar">
             <div>
-              <div class="edu-degree">BS Software Engineering</div>
-              <div class="edu-school">The Superior University, Lahore</div>
+                <div class="sidebar-name">Muhammad Kamran</div>
+                <div style="font-size:11px;color:#94a3b8;margin-top:4px;">
+                    Available for Remote
+                </div>
+                <div class="sidebar-title">Senior Full Stack Engineer · AI & Real-Time Systems</div>
             </div>
-            <div class="edu-meta">
-              <span class="edu-year">2017</span>
-            </div>
-          </div>
-          <div class="edu-entry">
             <div>
-              <div class="edu-degree">ICS (Intermediate)</div>
-              <div class="edu-school">Govt Fareedia College, Pakpattan</div>
+                <div class="s-label">Contact</div>
+                <div class="contact-list">
+                    <div class="contact-item">
+                        <svg class="contact-icon" viewBox="0 0 20 20" fill="none" stroke="currentColor"
+                             stroke-width="1.5">
+                            <path d="M10 2C6.686 2 4 4.686 4 8c0 4.5 6 10 6 10s6-5.5 6-10c0-3.314-2.686-6-6-6z"/>
+                            <circle cx="10" cy="8" r="2"/>
+                        </svg>
+                        Lahore, Pakistan
+                    </div>
+                    <div class="contact-item">
+                        <svg class="contact-icon" viewBox="0 0 20 20" fill="none" stroke="currentColor"
+                             stroke-width="1.5">
+                            <path d="M2 5a2 2 0 012-2h12a2 2 0 012 2v10a2 2 0 01-2 2H4a2 2 0 01-2-2V5z"/>
+                            <path d="M2 5l8 6 8-6"/>
+                        </svg>
+                        kamranallahyar@outlook.com
+                    </div>
+                    <div class="contact-item">
+                        <svg class="contact-icon" viewBox="0 0 20 20" fill="none" stroke="currentColor"
+                             stroke-width="1.5">
+                            <path
+                                    d="M2 3h2l2.5 6-1.5 1.5A13 13 0 0011.5 15.5l1.5-1.5 6 2.5v2a2 2 0 01-2 2C5.37 20 0 14.63 0 8a2 2 0 012-2z"/>
+                        </svg>
+                        +92 340 7083077
+                    </div>
+                    <div class="contact-item">
+                        <!-- LinkedIn Icon -->
+                        <svg class="contact-icon" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M4.98 3.5C4.98 4.88 3.87 6 2.49 6S0 4.88 0 3.5 1.11 1 2.49 1s2.49 1.12 2.49 2.5zM.22 8h4.54v14H.22V8zm7.56 0h4.35v1.92h.06c.61-1.15 2.1-2.36 4.33-2.36 4.63 0 5.49 3.05 5.49 7.01V22h-4.54v-6.99c0-1.67-.03-3.82-2.33-3.82-2.33 0-2.69 1.82-2.69 3.7V22H7.78V8z"/>
+                        </svg>
+                        <a href="https://www.linkedin.com/in/kamranallahyar/" target="_blank" style="color: inherit; text-decoration: none;">
+                            linkedin.com/in/kamranallahyar
+                        </a>
+                    </div>
+                    <div class="contact-item">
+                        <!-- GitHub Icon -->
+                        <svg class="contact-icon" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 .5C5.65.5.5 5.65.5 12c0 5.1 3.29 9.42 7.86 10.95.58.1.79-.25.79-.56v-2.17c-3.2.7-3.88-1.54-3.88-1.54-.53-1.34-1.3-1.7-1.3-1.7-1.06-.72.08-.7.08-.7 1.17.08 1.79 1.2 1.79 1.2 1.04 1.78 2.73 1.27 3.39.97.1-.75.41-1.27.75-1.56-2.55-.29-5.23-1.27-5.23-5.65 0-1.25.45-2.28 1.19-3.08-.12-.29-.52-1.45.11-3.02 0 0 .97-.31 3.18 1.18A10.98 10.98 0 0112 6.84c.98.005 1.97.13 2.89.38 2.2-1.5 3.17-1.18 3.17-1.18.64 1.57.24 2.73.12 3.02.74.8 1.18 1.83 1.18 3.08 0 4.39-2.69 5.36-5.26 5.64.42.36.79 1.08.79 2.18v3.23c0 .31.21.67.8.56C20.21 21.41 23.5 17.1 23.5 12 23.5 5.65 18.35.5 12 .5z"/>
+                        </svg>
+                        <a href="https://github.com/KamranAllahYar" target="_blank" style="color: inherit; text-decoration: none;">
+                            github.com/kamranallahyar
+                        </a>
+                    </div>
+                </div>
             </div>
-            <div class="edu-meta">
-              <span class="edu-year">2013</span>
+            <div>
+                <div class="s-label">Skills</div>
+                <div class="skills-group">
+                    <div class="skills-group-label">Backend</div>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Node.js</span>
+                        <span class="skill-tag">Bun.js</span>
+                        <span class="skill-tag">Express</span>
+                        <span class="skill-tag">Laravel</span>
+                        <span class="skill-tag">Nest.js</span>
+                        <span class="skill-tag">AdonisJS</span>
+                        <span class="skill-tag">PHP</span>
+
+                    </div>
+                </div>
+                <div class="skills-group">
+                    <div class="skills-group-label">Frontend</div>
+                    <div class="skill-tags">
+                        <span class="skill-tag">React</span>
+                        <span class="skill-tag">Vue.js</span>
+                        <span class="skill-tag">Next.js</span>
+                        <span class="skill-tag">Nuxt.js</span>
+                        <span class="skill-tag">Tailwind</span>
+                    </div>
+                </div>
+                <div class="skills-group">
+                    <div class="skills-group-label">Databases</div>
+                    <div class="skill-tags">
+                        <span class="skill-tag">MySQL</span>
+                        <span class="skill-tag">PostgreSQL</span>
+                        <span class="skill-tag">MongoDB</span>
+                        <span class="skill-tag">Redis</span>
+                    </div>
+                </div>
+                <div class="skills-group">
+                    <div class="skills-group-label">Other</div>
+                    <div class="skill-tags">
+                        <span class="skill-tag">AI / LLM</span>
+                        <span class="skill-tag">OpenAI</span>
+                        <span class="skill-tag">Ollama</span>
+                        <span class="skill-tag">Git</span>
+                        <span class="skill-tag">GitHub</span>
+                        <span class="skill-tag">TypeScript</span>
+                        <span class="skill-tag">GraphQL</span>
+                        <span class="skill-tag">Socket.IO</span>
+                        <span class="skill-tag">WebSockets</span>
+                        <span class="skill-tag">Kafka</span>
+                        <span class="skill-tag">MQTT</span>
+                        <span class="skill-tag">S3</span>
+                        <span class="skill-tag">CI/CD</span>
+                        <span class="skill-tag">Docker</span>
+                        <span class="skill-tag">GitHub Runners</span>
+                    </div>
+                </div>
             </div>
-          </div>
-        </section>
-        <section>
-          <div class="section-title">Experience</div>
-          <div class="exp-entry">
-            <div class="exp-header">
-              <div class="exp-role">Senior Full-Stack Engineer &amp; DevOps</div>
-              <span class="exp-date">Jun 2023 – Present</span>
+            <div>
+                <div class="s-label">Languages</div>
+                <div class="lang-list">
+                    <div class="lang-item">
+                        <span class="lang-name">Punjabi</span>
+                        <span class="lang-level">Native</span>
+                    </div>
+                    <div class="lang-item">
+                        <span class="lang-name">Urdu</span>
+                        <span class="lang-level">Native</span>
+                    </div>
+                    <div class="lang-item">
+                        <span class="lang-name">English</span>
+                        <span class="lang-level">Fluent</span>
+                    </div>
+                </div>
             </div>
-            <a class="exp-company" href="https://smartgentech.net">Smartgentech · Dubai, UAE · Remote</a>
-            <p class="exp-desc">
-              Architected Node.js services and delivered web apps with Vue.js, React, Next.js, and Nuxt.js. Designed
-              real-time messaging pipelines using Kafka and MQTT, reducing event-processing latency. Implemented CI/CD
-              pipelines, Docker-based containerization, monitoring infrastructure, and managed GitHub self-hosted
-              runners
-              to enable secure, scalable, and automated deployments. Launched an AI-powered chatbot for automated
-              reporting and email workflows.
-            </p>
-            <div class="exp-stack">
-              <span class="exp-tech">Node.js</span>
-              <span class="exp-tech">Vue.js</span>
-              <span class="exp-tech">React</span>
-              <span class="exp-tech">Next.js</span>
-              <span class="exp-tech">Nuxt.js</span>
-              <span class="exp-tech">Kafka</span>
-              <span class="exp-tech">MQTT</span>
-              <span class="exp-tech">WebSockets</span>
-              <span class="exp-tech">CI/CD</span>
-              <span class="exp-tech">Docker</span>
+            <div>
+                <div class="s-label">Highlights</div>
+                <div class="highlight-list">
+                    <div class="highlight-item">Telematics &amp; IoT Systems</div>
+                    <div class="highlight-item">High-throughput Data Streams</div>
+                    <div class="highlight-item">API &amp; Webhook Development</div>
+                    <div class="highlight-item">Third-Party Integrations</div>
+                    <div class="highlight-item">WebSockets &amp; Real-time</div>
+                    <div class="highlight-item">ACL &amp; Security</div>
+                    <div class="highlight-item">CI/CD &amp; Docker</div>
+                </div>
             </div>
-          </div>
-          <hr class="exp-separator" />
-          <div class="exp-entry">
-            <div class="exp-header">
-              <div class="exp-role">PHP / Laravel Developer → Full-Stack</div>
-              <span class="exp-date">Mar 2018 – Jun 2023</span>
-            </div>
-            <a class="exp-company" href="https://clicky.pk">Clicky · Lahore, Pakistan</a>
-            <p class="exp-desc">
-              Led development of a fashion e-commerce platform and a custom logistics system (Weship). Built Vue 3
-              frontends, Node.js/TypeScript APIs with AdonisJS, and a Laravel CRM for products, orders, inventory, and
-              marketing. Integrated payment gateways, REST/GraphQL/SOAP APIs, Firebase push notifications, real-time
-              webhooks, and Amazon S3 media management.
-            </p>
-            <div class="exp-stack">
-              <span class="exp-tech">Laravel</span>
-              <span class="exp-tech">AdonisJS</span>
-              <span class="exp-tech">TypeScript</span>
-              <span class="exp-tech">Vue 3</span>
-              <span class="exp-tech">Nuxt</span>
-              <span class="exp-tech">MongoDB</span>
-              <span class="exp-tech">MySQL</span>
-              <span class="exp-tech">Socket.IO</span>
-              <span class="exp-tech">Redis</span>
-              <span class="exp-tech">S3</span>
-            </div>
-          </div>
-        </section>
-      </main>
+        </aside>
+
+        <main class="main">
+            <section>
+                <div class="section-title">About</div>
+                <p class="summary-text">
+                    Senior Full Stack Engineer with 7+ years of experience building scalable web platforms, AI-powered applications, and real-time data systems. Specialized in integrating OpenAI/LLMs, RAG pipelines, and automation workflows into production environments.
+
+                    Architected event-driven infrastructures using Kafka and MQTT for high-throughput telemetry and alerting systems. Experienced in performance optimization, containerized deployments, and CI/CD automation.
+
+                    Delivered mission-critical solutions across GovTech, IoT telematics, healthcare, and SaaS domains using Node.js, TypeScript, Vue/Nuxt, React/Next, and modern DevOps practices.
+                </p>
+            </section>
+            <section>
+                <div class="highlight-list" style="display: grid;grid-template-columns: repeat(2, 1fr);gap: 12px;">
+                    <div class="highlight-item" style="color: black">AI & LLM Integration (OpenAI, RAG, Function
+                        Calling)
+                    </div>
+                    <div class="highlight-item" style="color: black">Event-Driven Architectures (Kafka, MQTT)</div>
+                    <div class="highlight-item" style="color: black">Real-Time Systems & WebSockets</div>
+                    <div class="highlight-item" style="color: black">High-Performance Backend Optimization</div>
+                    <div class="highlight-item" style="color: black">Containerized Infrastructure & CI/CD</div>
+                </div>
+
+            </section>
+            <section>
+                <div class="section-title">Education</div>
+                <div class="edu-entry">
+                    <div>
+                        <div class="edu-degree">BS Software Engineering</div>
+                        <div class="edu-school">The Superior University, Lahore</div>
+                    </div>
+                    <div class="edu-meta">
+                        <span class="edu-year">2017</span>
+                    </div>
+                </div>
+            </section>
+            <section>
+                <div class="section-title">Experience</div>
+                <div class="exp-entry">
+                    <div class="exp-header">
+                        <div class="exp-role">Senior Full-Stack Engineer &amp; DevOps</div>
+                        <span class="exp-date">Jun 2023 – Present</span>
+                    </div>
+                    <a class="exp-company" href="https://smartgentech.net">Smartgentech · Dubai, UAE · Remote</a>
+                    <div class="exp-desc">
+                        <ul>
+                            <li>Architected scalable Node.js microservices powering IoT and telematics platforms
+                                processing
+                                high-volume telemetry streams.
+                            </li>
+                            <li>Designed Kafka & MQTT event pipelines reducing processing latency and improving
+                                real-time
+                                alert responsiveness.
+                            </li>
+                            <li>Built and deployed containerized infrastructure using Docker and GitHub self-hosted
+                                runners,
+                                enabling automated CI/CD workflows.
+                            </li>
+                            <li>Delivered AI-powered reporting chatbot integrating OpenAI APIs for workflow automation
+                                and
+                                business insights.
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="exp-stack">
+                        <span class="exp-tech">Node.js</span>
+                        <span class="exp-tech">Vue.js</span>
+                        <span class="exp-tech">React</span>
+                        <span class="exp-tech">Next.js</span>
+                        <span class="exp-tech">Nuxt.js</span>
+                        <span class="exp-tech">Kafka</span>
+                        <span class="exp-tech">MQTT</span>
+                        <span class="exp-tech">WebSockets</span>
+                        <span class="exp-tech">CI/CD</span>
+                        <span class="exp-tech">Docker</span>
+                    </div>
+                </div>
+                <hr class="exp-separator"/>
+                <div class="exp-entry">
+                    <div class="exp-header">
+                        <div class="exp-role">PHP / Laravel Developer/ Node.js → Full-Stack</div>
+                        <span class="exp-date">Mar 2018 – Jun 2023</span>
+                    </div>
+                    <a class="exp-company" href="https://clicky.pk">Clicky · Lahore, Pakistan</a>
+                    <p class="exp-desc">
+                        Led development of a fashion e-commerce platform and a custom logistics system (Weship). Built
+                        Vue 3
+                        frontends, Node.js/TypeScript APIs with AdonisJS, and a Laravel CRM for products, orders,
+                        inventory, and
+                        marketing. Integrated payment gateways, REST/GraphQL/SOAP APIs, Firebase push notifications,
+                        real-time
+                        webhooks, and Amazon S3 media management.
+                    </p>
+                    <div class="exp-stack">
+                        <span class="exp-tech">Laravel</span>
+                        <span class="exp-tech">AdonisJS</span>
+                        <span class="exp-tech">TypeScript</span>
+                        <span class="exp-tech">Vue 3</span>
+                        <span class="exp-tech">Nuxt</span>
+                        <span class="exp-tech">MongoDB</span>
+                        <span class="exp-tech">MySQL</span>
+                        <span class="exp-tech">Socket.IO</span>
+                        <span class="exp-tech">Redis</span>
+                        <span class="exp-tech">S3</span>
+                    </div>
+                </div>
+            </section>
+        </main>
     </div>
 
     <!-- Full-width Projects section -->
     <div class="cv-projects">
-      <div class="section-title">Projects</div>
-      <div class="projects-grid">
-        <div class="project-card">
-          <div class="project-name"><a href="#">OPAL Oman TMS</a></div>
-          <div class="project-date">Oct 2024 – Present · Smartgentech</div>
-          <p class="project-desc">Mission-critical Traffic Management System monitoring vehicle telemetry and driver
-            behavior with real-time automated safety alerts.</p>
-          <div class="project-stack">
-            <span class="project-tech">Open Ai</span>
-            <span class="project-tech">Kafka</span>
-            <span class="project-tech">MQTT</span>
-            <span class="project-tech">TCP/Streams</span>
-            <span class="project-tech">Node.js</span>
-            <span class="project-tech">Express.js</span>
-            <span class="project-tech">Socket.IO</span>
-            <span class="project-tech">MongoDB</span>
-            <span class="project-tech">Vue.js</span>
-            <span class="project-tech">Nuxt.js</span>
-          </div>
-        </div>
-        <div class="project-card">
-          <div class="project-name"><span>Housecall Pro AI Chatbot</span></div>
-          <div class="project-date">May – Oct 2025 · Freelance</div>
-          <p class="project-desc">
-            Built an AI-powered chatbot integrated with the Housecall Pro API to generate reports,
-            automate follow-ups, and send marketing emails. Housecall Pro,
-            provides a leading SaaS platform that helps home service professionals manage
-            and grow their business operations efficiently.
-          </p>
-          <div class="project-stack">
-            <span class="project-tech">Open Ai LLM</span>
-            <span class="project-tech">Node.js</span>
-            <span class="project-tech">React.js</span>
-            <span class="project-tech">Next.js</span>
-            <span class="project-tech">MySQL</span>
-            <span class="project-tech">Tailwind CSS</span>
-            <span class="project-tech">WebSockets</span>
-          </div>
-        </div>
-        <div class="project-card">
-          <div class="project-name"><a href="https://rankmap.net/" target="_blank">RankMap</a></div>
-          <div class="project-date">Oct 2025 – Present · Freelance</div>
-          <p class="project-desc">
-            Engineered a high-performance SEO platform for localized SERP tracking.
-            Implemented automated data collection pipelines using <strong>Bun.js</strong> for 3x faster execution of
-            concurrent scraping tasks.
-          </p>
-          <div class="project-stack">
-            <span class="project-tech">Nuxt 3</span>
-            <span class="project-tech">Bun.js</span>
-            <span class="project-tech">AdonisJS</span>
-            <span class="project-tech">MySQL</span>
-            <span class="project-tech">Tailwind v4</span>
-            <span class="project-tech">Puppeteer</span>
-          </div>
-        </div>
-        <div class="project-card">
-          <div class="project-name"><a href="https://lssu.ola.om/" target="_blank">OLA LSSU (Oman)</a></div>
-          <div class="project-date">March 2024 – Present · Smartgentech</div>
-          <p class="project-desc">
-            Architected a mission-critical supplier management and compliance platform for the Omani energy sector.
-            Implemented <strong>Bun.js</strong> for optimized runtime execution and <strong>Nuxt.js SSR</strong> to
-            ensure instant page loads and SEO efficiency.
-            deployments.
-          </p>
-          <div class="project-stack">
-            <span class="project-tech">AdonisJS</span>
-            <span class="project-tech">Nuxt 3</span>
-            <span class="project-tech">Bun.js</span>
-            <span class="project-tech">Puppeteer</span>
-            <span class="project-tech">Docker</span>
-            <span class="project-tech">Tailwind v4</span>
-            <span class="project-tech">MySQL</span>
-          </div>
-        </div>
-        <div class="project-card">
-          <div class="project-name"><a href="https://informationcommission.gm/en" target="_blank">Information
-              Commission (The Gambia)</a></div>
-          <div class="project-date">Dec 2024 – Present · Freelance / GovTech</div>
-          <p class="project-desc">
-            Architected the official national Right to Information (RTI) portal to enhance governmental transparency.
-            Developed secure document request workflows, balancing public accessibility with data privacy protocols.
-          </p>
-          <div class="project-stack">
-            <span class="project-tech">AdonisJS</span>
-            <span class="project-tech">Next.js</span>
-            <span class="project-tech">React</span>
-            <span class="project-tech">Bun.js</span>
-            <span class="project-tech">Puppeteer</span>
-            <span class="project-tech">MySQL</span>
-            <span class="project-tech">Vue.js</span>
-          </div>
-        </div>
-        <div class="project-card">
-          <div class="project-name">
-            <a href="https://admin.lisfarmaapp.com" target="_blank">Lisfarma Medical</a>
-          </div>
-          <div class="project-date">May 2023 – Present · Freelance</div>
+        <div class="section-title">Projects</div>
+        <div class="projects-grid">
+            <div class="project-card">
+                <div class="project-name"><a href="#">OPAL Oman TMS</a></div>
+                <div class="project-date">Oct 2024 – Present · Smartgentech</div>
+                <p class="project-desc">Architected a real-time traffic management platform processing live vehicle
+                    telemetry and driver behavior data with automated safety alerts and event streaming
+                    infrastructure.</p>
+                <div class="project-stack">
+                    <span class="project-tech">OpenAI</span>
+                    <span class="project-tech">Kafka</span>
+                    <span class="project-tech">MQTT</span>
+                    <span class="project-tech">TCP/Streams</span>
+                    <span class="project-tech">Node.js</span>
+                    <span class="project-tech">Express.js</span>
+                    <span class="project-tech">Socket.IO</span>
+                    <span class="project-tech">MongoDB</span>
+                    <span class="project-tech">Vue.js</span>
+                    <span class="project-tech">Nuxt.js</span>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-name"><span>Housecall Pro AI Chatbot</span></div>
+                <div class="project-date">May – Oct 2025 · Freelance</div>
+                <p class="project-desc">
+                    Built an AI-powered chatbot integrated with the Housecall Pro API to generate reports,
+                    automate follow-ups, and send marketing emails. Housecall Pro,
+                    provides a leading SaaS platform that helps home service professionals manage
+                    and grow their business operations efficiently.
+                </p>
+                <div class="project-stack">
+                    <span class="project-tech">OpenAI / LLM</span>
+                    <span class="project-tech">Node.js</span>
+                    <span class="project-tech">React.js</span>
+                    <span class="project-tech">Next.js</span>
+                    <span class="project-tech">MySQL</span>
+                    <span class="project-tech">Tailwind CSS</span>
+                    <span class="project-tech">WebSockets</span>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-name"><a href="https://rankmap.net/" target="_blank">RankMap</a></div>
+                <div class="project-date">Oct 2025 – Present · Freelance</div>
+                <p class="project-desc">
+                    Engineered a high-performance SEO platform for localized SERP tracking.
+                    Implemented automated data collection pipelines using <strong>Bun.js</strong> for 3x faster
+                    execution of
+                    concurrent scraping tasks.
+                </p>
+                <div class="project-stack">
+                    <span class="project-tech">Nuxt 3</span>
+                    <span class="project-tech">Bun.js</span>
+                    <span class="project-tech">AdonisJS</span>
+                    <span class="project-tech">MySQL</span>
+                    <span class="project-tech">Tailwind v4</span>
+                    <span class="project-tech">Puppeteer</span>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-name"><a href="https://lssu.ola.om/" target="_blank">OLA LSSU (Oman)</a></div>
+                <div class="project-date">March 2024 – Present · Smartgentech</div>
+                <p class="project-desc">
+                    Architected a mission-critical supplier management and compliance platform for the Omani energy
+                    sector.
+                    Implemented <strong>Bun.js</strong> for optimized runtime execution and <strong>Nuxt.js SSR</strong>
+                    to
+                    ensure instant page loads and SEO efficiency.
+                    deployments.
+                </p>
+                <div class="project-stack">
+                    <span class="project-tech">AdonisJS</span>
+                    <span class="project-tech">Nuxt 3</span>
+                    <span class="project-tech">Bun.js</span>
+                    <span class="project-tech">Puppeteer</span>
+                    <span class="project-tech">Docker</span>
+                    <span class="project-tech">Tailwind v4</span>
+                    <span class="project-tech">MySQL</span>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-name"><a href="https://informationcommission.gm/en" target="_blank">Information
+                    Commission (The Gambia)</a></div>
+                <div class="project-date">Dec 2024 – Present · Freelance / GovTech</div>
+                <p class="project-desc">
+                    Architected the official national Right to Information (RTI) portal to enhance governmental
+                    transparency.
+                    Developed secure document request workflows, balancing public accessibility with data privacy
+                    protocols.
+                </p>
+                <div class="project-stack">
+                    <span class="project-tech">AdonisJS</span>
+                    <span class="project-tech">Next.js</span>
+                    <span class="project-tech">React</span>
+                    <span class="project-tech">Bun.js</span>
+                    <span class="project-tech">Puppeteer</span>
+                    <span class="project-tech">MySQL</span>
+                    <span class="project-tech">Vue.js</span>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-name">
+                    <a href="https://admin.lisfarmaapp.com" target="_blank">Lisfarma Medical</a>
+                </div>
+                <div class="project-date">May 2023 – Present · Freelance</div>
 
-          <p class="project-desc">
-            Secure medical records and clinical analysis platform built and maintained as a solo
-            full-stack developer. Includes patient records management, automated PDF lab report
-            generation via Puppeteer, and a real-time screen snapshot panel that displays the
-            active window state as a live preview.
-          </p>
+                <p class="project-desc">
+                    Secure medical records and clinical analysis platform built and maintained as a solo
+                    full-stack developer. Includes patient records management, automated PDF lab report
+                    generation via Puppeteer, and a real-time screen snapshot panel that displays the
+                    active window state as a live preview.
+                </p>
 
-          <div class="project-stack">
-            <span class="project-tech">Node.js</span>
-            <span class="project-tech">MongoDB</span>
-            <span class="project-tech">React.js</span>
-            <span class="project-tech">Bootstrap</span>
-            <span class="project-tech">Puppeteer</span>
-          </div>
-        </div>
-        <div class="project-card">
-          <div class="project-name">
-            <a href="https://www.weship.pk/" target="_blank">Weship</a>
-          </div>
-          <div class="project-date">Sep 2022 – Jun 2023 · Shipflo</div>
+                <div class="project-stack">
+                    <span class="project-tech">Node.js</span>
+                    <span class="project-tech">MongoDB</span>
+                    <span class="project-tech">React.js</span>
+                    <span class="project-tech">Bootstrap</span>
+                    <span class="project-tech">Puppeteer</span>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-name">
+                    <a href="https://www.weship.pk/" target="_blank">Weship</a>
+                </div>
+                <div class="project-date">Sep 2022 – Jun 2023 · Shipflo</div>
 
-          <p class="project-desc">
-            Pakistan's leading eCommerce shipping platform. Worked as a full-stack developer implementing real-time shipment
-            tracking via Socket.IO, third-party courier booking and tracking integrations, and
-            order sync with Shopify and WordPress storefronts.
-          </p>
+                <p class="project-desc">
+                    Pakistan's leading eCommerce shipping platform. Worked as a full-stack developer implementing
+                    real-time shipment
+                    tracking via Socket.IO, third-party courier booking and tracking integrations, and
+                    order sync with Shopify and WordPress storefronts.
+                </p>
 
-          <div class="project-stack">
-            <span class="project-tech">AdonisJS</span>
-            <span class="project-tech">Node.js</span>
-            <span class="project-tech">TypeScript</span>
-            <span class="project-tech">Vue 3</span>
-            <span class="project-tech">Redis</span>
-            <span class="project-tech">Socket.IO</span>
-          </div>
+                <div class="project-stack">
+                    <span class="project-tech">AdonisJS</span>
+                    <span class="project-tech">Node.js</span>
+                    <span class="project-tech">TypeScript</span>
+                    <span class="project-tech">Vue 3</span>
+                    <span class="project-tech">Redis</span>
+                    <span class="project-tech">Socket.IO</span>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-name"><a href="https://www.clicky.pk" target="_blank">Clicky.pk</a></div>
+                <div class="project-date">Jan 2019 – Jun 2023 · Clicky</div>
+                <p class="project-desc">Fashion e-commerce platform; built scalable backend APIs and Nuxt.js
+                    storefront.</p>
+                <div class="project-stack">
+                    <span class="project-tech">Node.js</span>
+                    <span class="project-tech">Express.js</span>
+                    <span class="project-tech">MongoDB</span>
+                    <span class="project-tech">Nuxt 2</span>
+                    <span class="project-tech">Vue 2</span>
+                    <span class="project-tech">Custom CSS</span>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-name"><a href="https://www.mycities.co.za/web-app/#/" target="_blank">MyCities</a>
+                </div>
+                <div class="project-date">Jul 2023 – Present · Freelance</div>
+                <p class="project-desc">Property management platform for municipalities to reduce utility costs.</p>
+                <div class="project-stack">
+                    <span class="project-tech">Laravel</span>
+                    <span class="project-tech">MySQL</span>
+                    <span class="project-tech">Vue 3</span>
+                    <span class="project-tech">Quasar</span>
+                </div>
+            </div>
         </div>
-        <div class="project-card">
-          <div class="project-name"><a href="https://www.clicky.pk" target="_blank">Clicky.pk</a></div>
-          <div class="project-date">Jan 2019 – Jun 2023 · Clicky</div>
-          <p class="project-desc">Fashion e-commerce platform; built scalable backend APIs and Nuxt.js storefront.</p>
-          <div class="project-stack">
-            <span class="project-tech">Node.js</span>
-            <span class="project-tech">Express.js</span>
-            <span class="project-tech">MongoDB</span>
-            <span class="project-tech">Nuxt2</span>
-            <span class="project-tech">Vue2</span>
-            <span class="project-tech">Custom CSS</span>
-          </div>
-        </div>
-        <div class="project-card">
-          <div class="project-name"><a href="https://www.mycities.co.za/web-app/#/" target="_blank">MyCities</a></div>
-          <div class="project-date">Jul 2023 – Present · Freelance</div>
-          <p class="project-desc">Property management platform for municipalities to reduce utility costs.</p>
-          <div class="project-stack">
-            <span class="project-tech">Laravel</span>
-            <span class="project-tech">MySQL</span>
-            <span class="project-tech">Vue 3</span>
-            <span class="project-tech">Quasar</span>
-          </div>
-        </div>
-      </div>
     </div>
 
-  </div>
+</div>
 </body>
 
 </html>
